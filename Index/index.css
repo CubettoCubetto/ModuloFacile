@@ -1,0 +1,105 @@
+/* Generale */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Titolo principale */
+h1 {
+    text-align: center;
+    color: #0056b3;
+}
+
+
+.form-container{
+    width: 80%;
+    margin: auto;
+}
+
+
+
+
+
+/* Evita il capo dopo "Il sottoscritto" */
+.inline-text {
+    display: inline-block; /* Mantenere tutto sulla stessa riga */
+}
+
+#nome_placeHolder {
+    display: inline-block; /* Placeholder in linea */
+    width: 150px;
+    border-bottom: 1px solid #000;
+    margin-left: 5px;
+}
+
+
+/* Stile generale del "documento" */
+
+.replica-modulo {
+    font-family: 'Times New Roman', Times, serif;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    line-height: 1.6;
+    color: #333;
+    text-align: center; /* Centra tutto il testo */
+}
+.spazio-testo{
+    max-width: 600px;
+    margin: auto;
+}
+
+/* Titolo del documento */
+.replica-modulo h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Paragrafo principale */
+.replica-modulo p {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+p div#nome_placeHolder {
+    display: inline-block;
+    width: 200px;
+    border-bottom: 1px solid #000;
+    margin-left: 5px;
+}
+
+/* Lista degli elementi */
+.replica-modulo ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto; /* Centra la lista */
+    display: inline-block;
+    text-align: left; /* Mantieni il testo allineato a sinistra */
+}
+
+.replica-modulo ul li {
+    font-size: 16px;
+    margin: 5px 0;
+    padding-left: 20px;
+    text-indent: -20px; /* Indentazione simile a PDF */
+    position: relative;
+}
+
+/* Stile dei puntini della lista */
+.replica-modulo ul li::before {
+    content: "•";
+    color: #000;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
