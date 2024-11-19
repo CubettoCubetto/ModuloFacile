@@ -4,61 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Firma Liberatoria</title>
-    <link rel="stylesheet" href="index.css">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="container-md">
-        <h1>Firma Liberatoria Online</h1>
+    <header class="top-bar">
+        <div class="logo-container">
+          <img src="logo-lo-zodiaco-70.png" alt="Spa Logo" class="logo">
+        </div>
+      </header>
+      
+    <div class="container-md container-diego">
 
+        
+
+        <h1>Firma Liberatoria Online</h1>
         <p class="note">Compilando e inviando questo modulo, confermi di accettare i termini della liberatoria.</p>
 
-
-        <form>
+        <!-- Form with Bootstrap validation -->
+        <form id="liberatoriaForm" class="needs-validation" novalidate>
+            <!-- Nome e Cognome Input -->
             <div class="mb-3">
-                <div class="input-group">
-                    <span class="input-group-text">First and last name</span>
-                    <input type="text" id="nome-input" aria-label="First name" class="form-control" oninput="aggiornaNome()">
-                    <input type="text" id="cognome-input"aria-label="Last name" class="form-control" oninput="aggiornaNome()">
+                <label for="nome-input" class="form-label">Nome e Cognome</label>
+                <input type="text" class="form-control" id="nome-input" placeholder="Inserisci il tuo nome e cognome" required>
+                <div class="invalid-feedback">
+                    Devi inserire sia il nome che il cognome!
+                </div>
+            </div>
+
+            <!-- Replica Modulo -->
+            <div class="replica-modulo">
+                <div class="spazio-testo">
+                    <h3>Liberatoria sauna</h3>
+                    <p>Il sottoscritto/a <span id="nome_placeHolder"></span></p>
+                    <p>in data <span id="data_placeHolder"></span></p>
+                    <p>afferma di non avere alcuna tra le seguenti condizioni o patologie:</p>
+
+                    <ul>
+                        <li>Ipertensione non controllata</li>
+                        <li>Ipotesione severa</li>
+                        <li>Malattie cardiache gravi</li>
+                        <li>Aritmie gravi</li>
+                        <li>Epilessia</li>
+                        <li>Di aver mai riscontrato problemi in sessioni di saune precedenti</li>
+                        <li>Di aver fatto uso di droghe o alcol nelle ultime 24 ore</li>
+                    </ul>
+                    <p>E assolve lo Zodiaco, nonchè le aziende e società ad essa collegate, ogni reponsabilità relative alla mia salute in caso di problemi durante la permanenza del sottoscritto all'interno delle aree sauna e bagno turco</p>
+                    <p>Firma del sottoscritto/a:</p>
+
+                    <div class="signature">
+                        <!-- Canvas for the signature -->
+                        <canvas id="signature-canvas" width="350" height="200"></canvas>
+                    </div>
+                </div>
+                            <!-- Clear Button -->
+                <div class="d-flex justify-content-center">
+                    <button id="clear" type="button" class="btn btn-secondary">Ridisegna firma</button>
+                </div>
+            </div>
+
+
+
+            <!-- Checkbox Input -->
+            <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Accetto i termini e condizioni del contratto qui sopra mostrato
+                  </label>
+                  <div class="invalid-feedback">
+                    Devi accettare i termini e condizioni
                   </div>
+                </div>
+              </div>
+
+            <!-- Submit Button -->
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success btn-lg">Invia</button>
             </div>
-            <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-
-        <div class="replica-modulo">
-            <div class="spazio-testo">
-                <h3>Liberatoria sauna</h3>
-                <p>Il sottoscritto/a <span id="nome_placeHolder"></span></p>
-                <p>in data <span id="data_placeHolder"></span></p>
-                <p>afferma di non avere alcuna tra le seguenti condizioni o patologie:</p>
-
-
-                <ul>
-                    <li>Ipertensione non controllat</li>
-                    <li>Ipotesione severa</li>
-                    <li>Malattie cardiache gravi</li>
-                    <li>Aritmie gravi</li>
-                    <li>Epilessia</li>
-                    <li>Di aver mai riscontrato problemi in sessioni di saune precedenti</li>
-                    <li>Di aver fatto uso di droghe o alcol nelle ultime 24 ore</li>
-                </ul>
-                <p>E assolve lo Zodiaco, nonchè le aziende e società ad essa collegate, ogni reponsabilità relative alla mia salute in caso di problemi durante le saune</p>
-                <p>Firma del sottoscritto/a:</p>
-            </div>
-            
-
-        </div>
+        <br><br><br>
     </div>
-    <div id="signature"></div>
-    
 
-    <script src="index.js"></script>
-    
+    <!-- Ensure SignaturePad.js is loaded before your own script -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="libs/jSignature.min.js"></script>
+    <script src="index.js"></script> <!-- Your custom JS code -->
+    <script src="SignManager.js"></script> <!-- Signature management -->
 </body>
 </html>
