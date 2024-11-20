@@ -1,3 +1,5 @@
+const BACKEND_URL = "http://127.0.0.1:5000"
+
 // Ensure the form submission doesn't trigger default behavior if invalid
 const form = document.getElementById('liberatoriaForm');
 const nomeInput = document.getElementById('nome-input');
@@ -79,6 +81,7 @@ form.addEventListener('submit', function(event) {
             alert("Perfavore, firma il documento");
             return;
         }
+        send_data();
         alert('Grazie e buona serata!');
         form.reset(); // Reset the form
 
@@ -86,6 +89,25 @@ form.addEventListener('submit', function(event) {
     }
     
 });
+
+function send_data(){
+    const dataURL = signaturePad.toDataURL('image/png');
+    fetch(BACKEND_URL + '/save_signature', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            nome: nomeInput.value,
+            image: dataURL
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Signature saved successfully!');
+        } else {
+            alert('Failed to save signature.');
+        }
+    });
+}
 
 // Initialize current date on page load
 window.onload = function() {
@@ -96,8 +118,3 @@ window.onload = function() {
     const year = today.getFullYear();
     dataElement.textContent = `${day} ${month} ${year}`;
 };
-
-// Clear the signature pad on button click
-document.getElementById('clear').addEventListener('click', function() {
-    signaturePad.clear();
-});
