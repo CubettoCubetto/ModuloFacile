@@ -18,7 +18,7 @@
 
   gtag('config', 'G-7G6MGXJVY1');
 </script>
-
+<!-- fine Google tag (gtag.js) -->
 
 <body>
     <header class="top-bar">
@@ -35,21 +35,21 @@
         <p class="note">Compilando e inviando questo modulo, confermi di accettare i termini della liberatoria.</p>
 
         <!-- Form with Bootstrap validation -->
-        <form id="liberatoriaForm" class="needs-validation" novalidate>
-            <!-- Nome e Cognome Input -->
-            <div class="mb-3">
-                <label for="nome-input" class="form-label">Nome e Cognome</label>
-                <input type="text" class="form-control" id="nome-input" placeholder="Inserisci il tuo nome e cognome" required>
-                <div class="invalid-feedback">
-                    Devi inserire sia il nome che il cognome!
-                </div>
-            </div>
+        <form id="liberatoriaForm" class="needs-validation" onkeydown="return event.key != 'Enter';" novalidate>
 
             <!-- Replica Modulo -->
             <div class="replica-modulo">
                 <div class="spazio-testo">
                     <h3>Liberatoria sauna</h3>
-                    <p>Il sottoscritto/a <span id="nome_placeHolder"></span></p>
+                          
+                    <!-- Nome e Cognome Input -->
+                    <div class="mb-3">
+                        Il sottoscritto/a 
+                        <input type="text" class="form-control" id="nome-input" placeholder="Cognome e Nome" required>
+                        <div class="invalid-feedback">
+                            Devi inserire sia il nome che il cognome!
+                        </div>
+                    </div>
                     <p>in data <span id="data_placeHolder"></span></p>
                     <p>afferma di non avere alcuna tra le seguenti condizioni o patologie:</p>
 

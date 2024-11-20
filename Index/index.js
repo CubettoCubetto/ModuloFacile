@@ -2,7 +2,6 @@
 const form = document.getElementById('liberatoriaForm');
 const nomeInput = document.getElementById('nome-input');
 const checkbox = document.getElementById('flexCheckDefault');
-const nomePlaceHolder = document.getElementById('nome_placeHolder');
 
 // Function to validate the name input (at least two words)
 function validateName(create_exception=false) {
@@ -42,10 +41,6 @@ function validateCheckbox() {
     }
 }
 
-function updateNamePlaceholder() {
-    nomePlaceHolder.textContent = nomeInput.value.trim();
-}
-
 
 // Add event listener for checkbox change to immediately update validation style
 checkbox.addEventListener('change', function() {
@@ -61,7 +56,6 @@ checkbox.addEventListener('change', function() {
 // Add event listener for name input to instantly update validation style
 nomeInput.addEventListener('input', function() {
     validateName(); // Validate the name as the user types
-    updateNamePlaceholder(); // Update the name in the placeholder span
 });
 
 // Form submission event
