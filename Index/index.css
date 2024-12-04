@@ -56,7 +56,7 @@ canvas {
 }
 
 
-#nome-input{
+#nome-input, #cellulare-input{
     display: inline;
     width: 60%;
 }

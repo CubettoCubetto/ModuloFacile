@@ -3,15 +3,16 @@ const BACKEND_URL = "http://127.0.0.1:5000"
 // Ensure the form submission doesn't trigger default behavior if invalid
 const form = document.getElementById('liberatoriaForm');
 const nomeInput = document.getElementById('nome-input');
+const cellInput = document.getElementById('cellulare-input');
 const checkbox = document.getElementById('flexCheckDefault');
-
+var data_text = "";
 // Function to validate the name input (at least two words)
 function validateName(create_exception=false) {
     const nameValue = nomeInput.value.trim();
     if (nameValue.split(' ').length < 2) {
         nomeInput.classList.add('is-invalid');
         nomeInput.classList.remove('is-valid');
-        if(create_exception){
+        if (create_exception){
             alert("Perfavore, inserisci il tuo nome e cognome all'inizio della pagina");
             nomeInput.scrollIntoView({
                 behavior: 'smooth', // Smooth scroll
@@ -25,6 +26,31 @@ function validateName(create_exception=false) {
         nomeInput.classList.add('is-valid');
     }
     return true;
+}
+
+function validatePhone(create_exception=false){
+    const cellValue = cellInput.value.trim();
+    if(cellValue >= 1_000_000_000 && cellValue < 10_000_000_000){
+        cellInput.classList.remove('is-invalid');
+        cellInput.classList.add('is-valid');
+        return true;
+    }
+    if(cellValue == "" && !create_exception){
+        cellInput.classList.remove('is-invalid');
+    }
+    else{
+        cellInput.classList.add('is-invalid');
+        cellInput.classList.remove('is-valid');
+        if(create_exception){
+            alert("Perfavore, inserisci un numero di telefono valido (10 cifre)");
+            cellInput.scrollIntoView({
+                behavior: 'smooth', // Smooth scroll
+                block: 'center'      // Align to the top of the viewport
+            });
+        
+        }
+    }
+    return false;  
 }
 
 // Validate the checkbox
@@ -60,6 +86,10 @@ nomeInput.addEventListener('input', function() {
     validateName(); // Validate the name as the user types
 });
 
+cellInput.addEventListener('input', function() {
+    validatePhone(false); // Validate the name as the user types
+});
+
 // Form submission event
 form.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent form submission to validate first
@@ -70,7 +100,10 @@ form.addEventListener('submit', function(event) {
         return;
     }
     validateCheckbox();
-
+    success  = validatePhone(true);
+    if(!success){
+        return
+    }
     // Check if all fields are valid
     if (form.checkValidity()) {
         // If valid, submit the form or process the data here (e.g., send data to the server)
@@ -97,7 +130,8 @@ function send_data(){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
             nome: nomeInput.value,
-            image: dataURL
+            image: dataURL,
+            numero_tel: cellInput.value
         })
     })
     .then(response => {
@@ -116,5 +150,6 @@ window.onload = function() {
     const day = today.getDate();
     const month = today.toLocaleString('it-IT', { month: 'long' });
     const year = today.getFullYear();
-    dataElement.textContent = `${day} ${month} ${year}`;
+    data_text = `${day} ${month} ${year}`;
+    dataElement.textContent = data_text;
 };
