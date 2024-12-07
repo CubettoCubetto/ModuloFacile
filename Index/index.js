@@ -64,10 +64,11 @@ function validateCheckbox() {
             behavior: 'smooth', // Smooth scroll
             block: 'center'      // Align to the top of the viewport
         });
-    } else {
-        checkbox.classList.remove('is-invalid');
-        checkbox.classList.add('is-valid');
-    }
+        return false;
+    } 
+    checkbox.classList.remove('is-invalid');
+    checkbox.classList.add('is-valid');
+    return true;
 }
 
 
@@ -94,38 +95,43 @@ cellInput.addEventListener('input', function() {
 // Form submission event
 form.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent form submission to validate first
-
+    startLoading();
     // Validate name, checkbox, and signature
     var success = validateName(true);
     if(!success){
+        stopLoading();
         return;
     }
-    validateCheckbox();
-    success  = validatePhone(true);
-    if(!success){
-        return
+    var success_checkbox = validateCheckbox();
+    if(!success_checkbox){
+        stopLoading();
+        return;
     }
-    // Check if all fields are valid
-    if (form.checkValidity()) {
-        // If valid, submit the form or process the data here (e.g., send data to the server)
-        
-        document.querySelector('.is-invalid')?.classList.remove('is-invalid'); // Remove validation errors
 
-        if(signaturePad.isEmpty()){
-            alert("Perfavore, firma il documento");
-            return;
-        }
-        var backend_success = send_data();
-
-        if(!backend_success && !DEBUG_FORM){
-            alert("C'è stato un errore con l'elaborazione del modulo, perfavore ricontrolla tutti i dati inseriti e rimanda. Se il problema persiste contatta la segreteria")
-            return;
-        }
-        
-        window.location.href = "Grazie/grazie.html";
-
-
+    success_phone  = validatePhone(true);
+    if(!success_phone){
+        stopLoading();
+        return;
     }
+    // If valid, submit the form or process the data here (e.g., send data to the server)
+        
+    document.querySelector('.is-invalid')?.classList.remove('is-invalid'); // Remove validation errors
+
+    if(signaturePad.isEmpty()){
+        alert("Perfavore, firma il documento");
+        stopLoading();
+        return;
+    }
+    var backend_success = send_data();
+
+    if(!backend_success && !DEBUG_FORM){
+        alert("C'è stato un errore con l'elaborazione del modulo, perfavore ricontrolla tutti i dati inseriti e rimanda. Se il problema persiste contatta la segreteria")
+        stopLoading();
+        return;
+    }
+        
+    window.location.href = "Grazie/grazie.html";
+    
     
 });
 
