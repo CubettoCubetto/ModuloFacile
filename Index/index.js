@@ -122,7 +122,7 @@ form.addEventListener('submit', function(event) {
             return;
         }
         
-        window.location.href = "/Grazie/grazie.html";
+        window.location.href = "Grazie/grazie.html";
 
 
     }
