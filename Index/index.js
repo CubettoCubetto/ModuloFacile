@@ -1,5 +1,6 @@
-const BACKEND_URL = "http://127.0.0.1:5000"
-
+var BACKEND_URL = "http://127.0.0.1:5000"
+BACKEND_URL = "https://onmod.pythonanywhere.com/"
+var DEBUG_FORM = true;
 // Ensure the form submission doesn't trigger default behavior if invalid
 const form = document.getElementById('liberatoriaForm');
 const nomeInput = document.getElementById('nome-input');
@@ -114,9 +115,14 @@ form.addEventListener('submit', function(event) {
             alert("Perfavore, firma il documento");
             return;
         }
-        send_data();
-        alert('Grazie e buona serata!');
-        form.reset(); // Reset the form
+        var backend_success = send_data();
+
+        if(!backend_success && !DEBUG_FORM){
+            alert("C'è stato un errore con l'elaborazione del modulo, perfavore ricontrolla tutti i dati inseriti e rimanda. Se il problema persiste contatta la segreteria")
+            return;
+        }
+        
+        window.location.href = "/Grazie/grazie.html";
 
 
     }
@@ -136,9 +142,11 @@ function send_data(){
     })
     .then(response => {
         if (response.ok) {
-            alert('Signature saved successfully!');
+            return true;
         } else {
             alert('Failed to save signature.');
+            console.log(response);
+            return false;
         }
     });
 }
