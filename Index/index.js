@@ -1,6 +1,6 @@
 var BACKEND_URL = "http://127.0.0.1:5000"
 BACKEND_URL = "https://onmod.pythonanywhere.com/"
-var DEBUG_FORM = true;
+var DEBUG_FORM = false;
 // Ensure the form submission doesn't trigger default behavior if invalid
 const form = document.getElementById('liberatoriaForm');
 const nomeInput = document.getElementById('nome-input');
