@@ -122,22 +122,23 @@ form.addEventListener('submit', function(event) {
         stopLoading();
         return;
     }
-    var backend_success = send_data();
-
-    if(!backend_success && !DEBUG_FORM){
-        alert("C'è stato un errore con l'elaborazione del modulo, perfavore ricontrolla tutti i dati inseriti e rimanda. Se il problema persiste contatta la segreteria")
-        stopLoading();
-        return;
-    }
-        
-    window.location.href = "Grazie/grazie.html";
+    send_data().then(backend_success => {
+        if (!backend_success && !DEBUG_FORM) {
+            alert("C'è stato un errore con l'elaborazione del modulo, perfavore ricontrolla tutti i dati inseriti e rimanda. Se il problema persiste contatta la segreteria");
+            stopLoading();
+            return;
+        }
+    
+        // Redirect after fetch is successful
+        window.location.href = "Grazie/grazie.html";
+    });
     
     
 });
 
-function send_data(){
+function send_data() {
     const dataURL = signaturePad.toDataURL('image/png');
-    fetch(BACKEND_URL + '/save_signature', {
+    return fetch(BACKEND_URL + '/save_signature', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -148,12 +149,16 @@ function send_data(){
     })
     .then(response => {
         if (response.ok) {
-            return true;
+            return true; // Resolves the promise with true
         } else {
             alert('Failed to save signature.');
             console.log(response);
-            return false;
+            return false; // Resolves the promise with false
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        return false; // Resolves the promise with false in case of error
     });
 }
 
